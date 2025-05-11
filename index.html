@@ -288,6 +288,27 @@
                     </div>
                 </div>
             </div>
+		  <div class="question">
+                <div class="question-title"><span class="question-count">Q6:</span> When's the last time you truly felt rested?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q6-a" name="q6" value="A" required>
+                        <label for="q6-a">After checking off everything on my list.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q6-b" name="q6" value="B">
+                        <label for="q6-b">When no one needed me and I could be invisible.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q6-c" name="q6" value="C">
+                        <label for="q6-c">Maybe before kids, career, or caregiving.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q6-d" name="q6" value="D">
+                        <label for="q6-d">I don't remember.</label>
+                    </div>
+                </div>
+            </div>
 
             <div class="question">
                 <div class="question-title"><span class="question-count">Q7:</span> What kind of support feels most nourishing?</div>
@@ -475,7 +496,7 @@
         submitBtn.textContent = 'Submitting...';
         
         // Send data to Google Apps Script
-        fetch('https://script.google.com/macros/s/AKfycbwQL63ex8-Jkj-YjznWPfb5z0b5eTBqLLVevpL_xThKUN4BBPfBY_QL18Oc5Izxwfn-wQ/exec', {
+        fetch('https://script.google.com/macros/s/AKfycbyjTMOYUN2N0fUEKoKuoSYUZsI5ZSRZS8Q1NW6DIe0RwJepRVtRaLCubUDx4yPuYxeh/exec', {
             method: 'POST',
             body: JSON.stringify(formData),
             headers: {
