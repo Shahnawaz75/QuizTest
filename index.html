@@ -245,6 +245,27 @@
                     </div>
                 </div>
             </div>
+             <div class="question">
+                <div class="question-title"><span class="question-count">Q4:</span> How do you handle other people needing you when you're drained?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q4-a" name="q4" value="A" required>
+                        <label for="q4-a">I plan how to fit them in anyway.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q4-b" name="q4" value="B">
+                        <label for="q4-b">I say yes but resent it internally.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q4-c" name="q4" value="C">
+                        <label for="q4-c">I show up, no matter what—it's my role.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q4-d" name="q4" value="D">
+                        <label for="q4-d">I avoid or ignore them to protect my energy.</label>
+                    </div>
+                </div>
+            </div>
 
             <div class="question">
                 <div class="question-title"><span class="question-count">Q5:</span> What's your relationship to vulnerability?</div>
@@ -484,7 +505,7 @@
             try {
                 // Send data to Supabase
                 const { data, error } = await supabaseClient
-                    .from('burnout_quiz_responses') // Replace with your actual table name
+                    .from('Quiz') // Replace with your actual table name
                     .insert([formData]);
                 
                 if (error) throw error;
