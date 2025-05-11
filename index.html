@@ -408,7 +408,8 @@
         // Initialize Supabase client
         const SUPABASE_URL = 'https://lwqvezfeehxghqfxclom.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx3cXZlemZlZWh4Z2hxZnhjbG9tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY5ODkwODUsImV4cCI6MjA2MjU2NTA4NX0.3gk479cnyY9va4_y-kswooPKZmoK-_fJnXGKcWv9vGo';
-        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        const { createClient } = supabase;
+        const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
 
         const form = document.getElementById('quizForm');
         const progressBar = document.getElementById('progressBar');
@@ -482,7 +483,7 @@
             
             try {
                 // Send data to Supabase
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('burnout_quiz_responses') // Replace with your actual table name
                     .insert([formData]);
                 
