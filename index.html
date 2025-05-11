@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Burnout Style Quiz</title>
-    <style>
+    <style>  
         body {
             font-family: 'Helvetica Neue', Arial, sans-serif;
             line-height: 1.6;
@@ -143,7 +144,7 @@
         <div class="logo">SYND</div>
         <div class="tagline">THE LUXURY RECHARGE</div>
     </div>
-    
+
     <div class="form-container">
         <div class="form-header">
             <h1>Burnout Style Quiz</h1>
@@ -288,27 +289,6 @@
                     </div>
                 </div>
             </div>
-		  <div class="question">
-                <div class="question-title"><span class="question-count">Q6:</span> When's the last time you truly felt rested?</div>
-                <div class="options">
-                    <div class="option">
-                        <input type="radio" id="q6-a" name="q6" value="A" required>
-                        <label for="q6-a">After checking off everything on my list.</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q6-b" name="q6" value="B">
-                        <label for="q6-b">When no one needed me and I could be invisible.</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q6-c" name="q6" value="C">
-                        <label for="q6-c">Maybe before kids, career, or caregiving.</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q6-d" name="q6" value="D">
-                        <label for="q6-d">I don't remember.</label>
-                    </div>
-                </div>
-            </div>
 
             <div class="question">
                 <div class="question-title"><span class="question-count">Q7:</span> What kind of support feels most nourishing?</div>
@@ -397,25 +377,24 @@
                     </div>
                 </div>
             </div>
-			<div class="question">
-<div class="question">
-    <div class="question-title">Personal Information</div>
-    <div class="options" style="gap: 20px;">
-        <div class="option" style="background-color: transparent; cursor: default;">
-            <div class="option-content" style="display: block; padding: 0;">
-                <label for="name" style="display: block; margin-bottom: 10px; font-weight: 500;">Your Name:</label>
-                <input type="text" id="name" name="name" required style="width: 100%; padding: 12px; border: 1px solid #d4d4d4; border-radius: 8px; font-family: 'Montserrat', sans-serif; font-size: 16px; box-sizing: border-box;">
-            </div>
-        </div>
-        <div class="option" style="background-color: transparent; cursor: default;">
-            <div class="option-content" style="display: block; padding: 0;">
-                <label for="email" style="display: block; margin-bottom: 10px; font-weight: 500;">Your Email:</label>
-                <input type="email" id="email" name="email" required style="width: 100%; padding: 12px; border: 1px solid #d4d4d4; border-radius: 8px; font-family: 'Montserrat', sans-serif; font-size: 16px; box-sizing: border-box;">
-            </div>
-        </div>
-    </div>
-</div>
 
+            <div class="question">
+                <div class="question-title">Personal Information</div>
+                <div class="options" style="gap: 20px;">
+                    <div class="option" style="background-color: transparent; cursor: default;">
+                        <div class="option-content" style="display: block; padding: 0;">
+                            <label for="name" style="display: block; margin-bottom: 10px; font-weight: 500;">Your Name:</label>
+                            <input type="text" id="name" name="name" required style="width: 100%; padding: 12px; border: 1px solid #d4d4d4; border-radius: 8px; font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 16px; box-sizing: border-box;">
+                        </div>
+                    </div>
+                    <div class="option" style="background-color: transparent; cursor: default;">
+                        <div class="option-content" style="display: block; padding: 0;">
+                            <label for="email" style="display: block; margin-bottom: 10px; font-weight: 500;">Your Email:</label>
+                            <input type="email" id="email" name="email" required style="width: 100%; padding: 12px; border: 1px solid #d4d4d4; border-radius: 8px; font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 16px; box-sizing: border-box;">
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="error" id="formError">Please answer all questions before submitting.</div>
             
@@ -423,173 +402,165 @@
         </form>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-	
-	 document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('quizForm');
-    const progressBar = document.getElementById('progressBar');
-    const formError = document.getElementById('formError');
-    
-    // Update progress bar when any radio button is clicked
-    const allRadios = document.querySelectorAll('input[type="radio"]');
-    const totalQuestions = 10; // Total number of questions
-    
-    allRadios.forEach(radio => {
-        radio.addEventListener('change', updateProgress);
-    });
-    
-    function updateProgress() {
-        // Count answered questions
-        let answeredQuestions = 0;
-        for (let i = 1; i <= totalQuestions; i++) {
-            if (document.querySelector(`input[name="q${i}"]:checked`)) {
-                answeredQuestions++;
-            }
-        }
-        
-        // Update progress bar
-        const progressPercentage = (answeredQuestions / totalQuestions) * 100;
-        progressBar.style.width = progressPercentage + '%';
-    }
-    
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Check if all questions are answered
-        let allAnswered = true;
-        for (let i = 1; i <= totalQuestions; i++) {
-            if (!document.querySelector(`input[name="q${i}"]:checked`)) {
-                allAnswered = false;
-                break;
-            }
-        }
-        
-        if (!allAnswered) {
-            formError.style.display = 'block';
-            return;
-        }
-        
-        formError.style.display = 'none';
-        
-        // Get form data
-        const formData = {
-            name: document.getElementById('name').value,
-            email: document.getElementById('email').value,
-            q1: document.querySelector('input[name="q1"]:checked').value,
-            q2: document.querySelector('input[name="q2"]:checked').value,
-            q3: document.querySelector('input[name="q3"]:checked').value,
-            q4: document.querySelector('input[name="q4"]:checked').value,
-            q5: document.querySelector('input[name="q5"]:checked').value,
-            q6: document.querySelector('input[name="q6"]:checked').value,
-            q7: document.querySelector('input[name="q7"]:checked').value,
-            q8: document.querySelector('input[name="q8"]:checked').value,
-            q9: document.querySelector('input[name="q9"]:checked').value,
-            q10: document.querySelector('input[name="q10"]:checked').value
-        };
-        
-        // Log the data being sent
-        console.log("Sending data:", formData);
-        
-        // Change button state to loading
-        const submitBtn = document.querySelector('.submit-btn');
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Submitting...';
-        
-        // Send data to Google Apps Script
-        fetch('https://script.google.com/macros/s/AKfycbyjTMOYUN2N0fUEKoKuoSYUZsI5ZSRZS8Q1NW6DIe0RwJepRVtRaLCubUDx4yPuYxeh/exec', {
-            method: 'POST',
-            body: JSON.stringify(formData),
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            mode: 'cors' // Explicitly set CORS mode
-        })
-        .then(response => {
-            // Reset button state
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'See My Results';
-            
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize Supabase client
+        const SUPABASE_URL = 'https://lwqvezfeehxghqfxclom.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx3cXZlemZlZWh4Z2hxZnhjbG9tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY5ODkwODUsImV4cCI6MjA2MjU2NTA4NX0.3gk479cnyY9va4_y-kswooPKZmoK-_fJnXGKcWv9vGo';
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        const form = document.getElementById('quizForm');
+        const progressBar = document.getElementById('progressBar');
+        const formError = document.getElementById('formError');
+
+        // Update progress bar when any radio button is clicked
+        const allRadios = document.querySelectorAll('input[type="radio"]');
+        const totalQuestions = 10; // Total number of questions
+
+        allRadios.forEach(radio => {
+            radio.addEventListener('change', updateProgress);
+        });
+
+        function updateProgress() {
+            // Count answered questions
+            let answeredQuestions = 0;
+            for (let i = 1; i <= totalQuestions; i++) {
+                if (document.querySelector(`input[name="q${i}"]:checked`)) {
+                    answeredQuestions++;
+                }
             }
             
-            return response.json();
-        })
-        .then(data => {
-            console.log('Success:', data);
+            // Update progress bar
+            const progressPercentage = (answeredQuestions / totalQuestions) * 100;
+            progressBar.style.width = progressPercentage + '%';
+        }
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
             
-            // Count responses for each option
-            const counts = {
-                'A': 0,
-                'B': 0,
-                'C': 0,
-                'D': 0
+            // Check if all questions are answered
+            let allAnswered = true;
+            for (let i = 1; i <= totalQuestions; i++) {
+                if (!document.querySelector(`input[name="q${i}"]:checked`)) {
+                    allAnswered = false;
+                    break;
+                }
+            }
+            
+            if (!allAnswered) {
+                formError.style.display = 'block';
+                return;
+            }
+            
+            formError.style.display = 'none';
+            
+            // Get form data
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                q1: document.querySelector('input[name="q1"]:checked').value,
+                q2: document.querySelector('input[name="q2"]:checked').value,
+                q3: document.querySelector('input[name="q3"]:checked').value,
+                q4: document.querySelector('input[name="q4"]:checked').value,
+                q5: document.querySelector('input[name="q5"]:checked').value,
+                q6: document.querySelector('input[name="q6"]:checked').value,
+                q7: document.querySelector('input[name="q7"]:checked').value,
+                q8: document.querySelector('input[name="q8"]:checked').value,
+                q9: document.querySelector('input[name="q9"]:checked').value,
+                q10: document.querySelector('input[name="q10"]:checked').value,
+                created_at: new Date().toISOString(),
             };
             
-            for (let i = 1; i <= totalQuestions; i++) {
-                const selectedOption = document.querySelector(`input[name="q${i}"]:checked`).value;
-                counts[selectedOption]++;
-            }
+            // Log the data being sent
+            console.log("Sending data to Supabase:", formData);
             
-            // Find most selected option
-            let maxCount = 0;
-            let mostSelectedOption = '';
+            // Change button state to loading
+            const submitBtn = document.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
             
-            for (const option in counts) {
-                if (counts[option] > maxCount) {
-                    maxCount = counts[option];
-                    mostSelectedOption = option;
+            try {
+                // Send data to Supabase
+                const { data, error } = await supabase
+                    .from('burnout_quiz_responses') // Replace with your actual table name
+                    .insert([formData]);
+                
+                if (error) throw error;
+                
+                console.log('Success: Data saved to Supabase', data);
+                
+                // Count responses for each option
+                const counts = {
+                    'A': 0,
+                    'B': 0,
+                    'C': 0,
+                    'D': 0
+                };
+                
+                for (let i = 1; i <= totalQuestions; i++) {
+                    const selectedOption = document.querySelector(`input[name="q${i}"]:checked`).value;
+                    counts[selectedOption]++;
                 }
-            }
-            
-            // In case of a tie, prioritize options in the order: A, B, C, D
-            const orderedOptions = ['A', 'B', 'C', 'D'];
-            const maxOptions = [];
-            
-            for (const option of orderedOptions) {
-                if (counts[option] === maxCount) {
-                    maxOptions.push(option);
+                
+                // Find most selected option
+                let maxCount = 0;
+                let mostSelectedOption = '';
+                
+                for (const option in counts) {
+                    if (counts[option] > maxCount) {
+                        maxCount = counts[option];
+                        mostSelectedOption = option;
+                    }
                 }
+                
+                // In case of a tie, prioritize options in the order: A, B, C, D
+                const orderedOptions = ['A', 'B', 'C', 'D'];
+                const maxOptions = [];
+                
+                for (const option of orderedOptions) {
+                    if (counts[option] === maxCount) {
+                        maxOptions.push(option);
+                    }
+                }
+                
+                mostSelectedOption = maxOptions[0]; // Take the first one based on priority
+                
+                // Redirect based on most selected option
+                let redirectURL = '';
+                
+                switch (mostSelectedOption) {
+                    case 'A':
+                        redirectURL = 'https://theluxuryrecharge.com/%f0%9f%92%aa-the-strategist/';
+                        break;
+                    case 'B':
+                        redirectURL = 'https://theluxuryrecharge.com/%F0%9F%8C%8A-the-silent-storm/';
+                        break;
+                    case 'C':
+                        redirectURL = 'https://theluxuryrecharge.com/the-survivalist/';
+                        break;
+                    case 'D':
+                        redirectURL = 'https://theluxuryrecharge.com/%f0%9f%91%91-the-legacy-leader/';
+                        break;
+                    default:
+                        redirectURL = 'https://theluxuryrecharge.com/';
+                }
+                
+                // Add a small delay before redirecting for better UX
+                setTimeout(() => {
+                    window.location.href = redirectURL;
+                }, 500);
+                
+            } catch (error) {
+                // Reset button state
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'See My Results';
+                
+                console.error('Error:', error);
+                alert('Submission failed. Please try again.');
             }
-            
-            mostSelectedOption = maxOptions[0]; // Take the first one based on priority
-            
-            // Redirect based on most selected option
-            let redirectURL = '';
-            
-            switch (mostSelectedOption) {
-                case 'A':
-                    redirectURL = 'https://theluxuryrecharge.com/%f0%9f%92%aa-the-strategist/';
-                    break;
-                case 'B':
-                    redirectURL = 'https://theluxuryrecharge.com/%F0%9F%8C%8A-the-silent-storm/';
-                    break;
-                case 'C':
-                    redirectURL = 'https://theluxuryrecharge.com/the-survivalist/';
-                    break;
-                case 'D':
-                    redirectURL = 'https://theluxuryrecharge.com/%f0%9f%91%91-the-legacy-leader/';
-                    break;
-                default:
-                    redirectURL = 'https://theluxuryrecharge.com/';
-            }
-            
-            // Add a small delay before redirecting for better UX
-            setTimeout(() => {
-                window.location.href = redirectURL;
-            }, 500);
-        })
-        .catch(error => {
-            // Reset button state
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'See My Results';
-            
-            console.error('Error:', error);
-            alert('Submission failed. Please try again.');
         });
     });
-});
-		
     </script>
 </body>
 </html>
